@@ -7,10 +7,8 @@ class Game
     self.player1 = Player.new('Player 1')
     self.player2 = Player.new('Player 2')
     self.current_player = player1
-    game_turns
+    self.game_turns
   end
-
-  private
 
   def game_turns
     puts "Welcome to the simple Math game"
@@ -18,15 +16,19 @@ class Game
       puts "----- NEW TURN -----"
 
       outcome = question
-      
-      if !outcome
-        self.current_player.lose_life
-      end
 
-      puts "P1: #{player1.lives}/3 vs P2: #{player2.lives}/3"
+      self.updateLives(outcome)
 
+      self.next_player
     end
-    puts "game over"
+    self.gameover
+  end
+
+  def updateLives(outcome)
+    if !outcome
+      self.current_player.lose_life
+    end
+    self.display_score
   end
 
   def question
@@ -43,6 +45,31 @@ class Game
       puts "Seriously? No!"
       return false
     end
+  end
+
+  def display_score
+    puts "P1: #{player1.lives}/3 vs P2: #{player2.lives}/3"
+  end
+
+  def next_player
+
+    if self.current_player == player1
+      self.current_player = player2
+    elsif self.current_player == player2
+      self.current_player = player1
+    else 
+      puts "an error has occured"
+    end
+  end
+
+  def gameover
+    winner = player1.dead? ? player2 : player1
+
+    puts "#{winner.name} wins with a score of #{winner.lives}/3"
+
+    puts "----- GAME OVER -----"
+    puts "Good bye~!"
+
   end
 
 end
