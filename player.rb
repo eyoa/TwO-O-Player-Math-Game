@@ -11,4 +11,7 @@ class Player
     self.lives -= 1
   end
 
+  def dead?
+    self.lives <= 0
+  end
 end
