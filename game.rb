@@ -7,8 +7,10 @@ class Game
     self.player1 = Player.new('Player 1')
     self.player2 = Player.new('Player 2')
     self.current_player = player1
-    self.game_turns
+    game_turns
   end
+
+  private
 
   def game_turns
     puts "Welcome to the simple Math game"
@@ -17,18 +19,18 @@ class Game
 
       outcome = question
 
-      self.updateLives(outcome)
+      updateLives(outcome)
 
-      self.next_player
+      next_player
     end
-    self.gameover
+    gameover
   end
 
   def updateLives(outcome)
     if !outcome
       self.current_player.lose_life
     end
-    self.display_score
+    display_score
   end
 
   def question
